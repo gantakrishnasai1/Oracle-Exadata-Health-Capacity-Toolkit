@@ -3,7 +3,6 @@
 
 SET PAGESIZE 200
 SET LINESIZE 180
-
 COLUMN occupant_name FORMAT A35
 
 SELECT occupant_name,
