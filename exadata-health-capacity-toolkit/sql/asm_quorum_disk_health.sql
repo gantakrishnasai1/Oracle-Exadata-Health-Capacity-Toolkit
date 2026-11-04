@@ -1,6 +1,5 @@
 -- ASM Quorum Disk Health Assessment
 -- Read-only diagnostic script
-
 SET PAGESIZE 200
 SET LINESIZE 220
 
