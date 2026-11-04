@@ -1,0 +1,26 @@
+# Oracle diagnostic output
+*.log
+*.out
+*.lst
+*.trc
+*.trm
+
+# Exadata collection directories
+exadata_grid_*/
+exadata_cell_*/
+
+# Generated reports
+*.csv
+*.html
+
+# Credentials and sensitive files
+*.wallet
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
