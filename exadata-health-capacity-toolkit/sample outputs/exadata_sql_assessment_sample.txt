@@ -1,0 +1,138 @@
+ORACLE EXADATA HEALTH & CAPACITY TOOLKIT
+SANITIZED SAMPLE SQL VALIDATION OUTPUT
+Environment: Oracle Database 19c | 4-node RAC | ASM HIGH redundancy
+
+NOTE: Production database names, DBIDs, hostnames, and storage paths have been
+anonymized. Metrics and status values are based on the SQL output supplied.
+
+1. DATABASE AND RAC HEALTH
+--------------------------
+Database role       : PRIMARY
+Open mode           : READ WRITE
+Log mode            : ARCHIVELOG
+CDB                 : YES
+Database version    : 19.0.0.0.0
+RAC instances       : 4
+Instance status     : All 4 OPEN / ACTIVE / NORMAL
+Invalid non-system objects: None reported
+
+2. ASM DISKGROUP CAPACITY
+-------------------------
+DISKGROUP  REDUNDANCY  TOTAL_GB    RAW_FREE_GB  USABLE_FILE_GB  OFFLINE_DISKS
+DATAC2     HIGH        319486.50   143651.75    47883.00        0
+RECOC2     HIGH         79870.50    76046.72    25344.44        0
+
+3. ASM DISK STATUS
+------------------
+DISKGROUP  MOUNT_STATUS  HEADER_STATUS  MODE_STATUS  STATE   DISK_COUNT
+DATAC2     CACHED        MEMBER         ONLINE       NORMAL  50
+RECOC2     CACHED        MEMBER         ONLINE       NORMAL  50
+
+4. ASM FAILURE-GROUP DISTRIBUTION
+---------------------------------
+DISKGROUP  FAILURE_GROUP       DISK_COUNT  TOTAL_GB   FREE_GB
+DATAC2     [CELL_FG_01]        12          79871.63   35912.92
+DATAC2     [CELL_FG_02]        12          79871.63   35912.97
+DATAC2     [CELL_FG_03]        12          79871.63   35912.92
+DATAC2     [CELL_FG_04]        12          79871.63   35912.95
+DATAC2     [QUORUM_FG_01]       1              0.13       0.08
+DATAC2     [QUORUM_FG_02]       1              0.13       0.11
+RECOC2     [CELL_FG_01]        12          19967.63   19011.70
+RECOC2     [CELL_FG_02]        12          19967.63   19011.66
+RECOC2     [CELL_FG_03]        12          19967.63   19011.66
+RECOC2     [CELL_FG_04]        12          19967.63   19011.70
+RECOC2     [QUORUM_FG_01]       1              0.13       0.11
+RECOC2     [QUORUM_FG_02]       1              0.13       0.11
+
+All reported ASM disks: CACHED / MEMBER / ONLINE / NORMAL.
+
+5. ASM QUORUM DISK HEALTH
+-------------------------
+Four quorum disks were reported, each 128 MB.
+All four: HEADER_STATUS=MEMBER, MODE_STATUS=ONLINE, STATE=NORMAL.
+
+6. ASM OPERATIONS
+-----------------
+GV$ASM_OPERATION result: No rows selected.
+Interpretation: No ASM operation was visible at collection time. This does
+not prove that a previous rebalance completed successfully.
+
+7. TABLESPACE CAPACITY
+----------------------
+TABLESPACE  TOTAL_MB  FREE_MB   USED_MB  USED_PCT
+SYSAUX      6096      811.88    5284.13  86.68
+SYSTEM      2000      808.44    1191.56  59.58
+USERS       1024      954.38      69.63   6.80
+UNDOTBS1    2000     1968.75      31.25   1.56
+UNDOTBS2    2000     1975.44      24.56   1.23
+UNDOTBS3    2000     1976.75      23.25   1.16
+UNDOTBS4    2000     1977.63      22.38   1.12
+
+Observation: SYSAUX utilization was 86.68% at collection time.
+
+8. SYSAUX COMPONENT USAGE
+-------------------------
+OCCUPANT             USED_MB
+SM/AWR               2701.06
+SM/OPTSTAT            533.81
+SDO                   261.81
+SM/ADVISOR            103.38
+AUDSYS                 71.31
+XDB                    66.13
+SM/OTHER               63.94
+AO                     42.81
+JOB_SCHEDULER          11.44
+LOGMNR                 11.00
+EM_MONITORING_USER      6.69
+WM                      6.56
+SMON_SCN_TIME           4.38
+PL/SCOPE                2.88
+TEXT                    2.81
+SQL_MANAGEMENT_BASE     2.69
+STREAMS                 1.69
+LOGSTDBY                1.56
+AUDIT_TABLES            1.06
+AUTO_TASK               0.63
+
+Observation: SM/AWR was the largest reported SYSAUX occupant.
+
+9. AWR CONFIGURATION AND SNAPSHOT HISTORY
+-----------------------------------------
+Snapshot interval : 1 hour
+Retention         : 8 days
+Top SQL           : DEFAULT
+
+DBID category   INSTANCE  SNAPSHOT_COUNT  PERIOD
+Current DBID    1         211             26-OCT-2026 to 04-NOV-2026
+Current DBID    2         211             26-OCT-2026 to 04-NOV-2026
+Current DBID    3         211             26-OCT-2026 to 04-NOV-2026
+Current DBID    4         211             26-OCT-2026 to 04-NOV-2026
+Other DBID      1           1             05-AUG-2026 only
+Other DBID      2           1             05-AUG-2026 only
+Other DBID      3           1             05-AUG-2026 only
+Other DBID      4           1             05-AUG-2026 only
+
+Current DBID snapshot records: 844 (211 per instance)
+Other DBID snapshot records :   4 (1 per instance)
+
+10. DATABASE INCARNATION HISTORY
+--------------------------------
+INCARNATION  RESETLOGS_DATE  STATUS
+1            20-NOV-2025     PARENT
+2            05-AUG-2026     PARENT
+3            05-AUG-2026     CURRENT
+
+11. VALIDATION NOTES
+--------------------
+- SQL diagnostic scripts were executed successfully in the supplied Oracle
+  Database 19c, four-node RAC environment.
+- All four RAC instances were OPEN and ACTIVE in the supplied output.
+- DATAC2 and RECOC2 reported HIGH redundancy and zero offline disks.
+- All reported quorum disks were MEMBER / ONLINE / NORMAL.
+- No active ASM operation was visible during collection.
+- SYSAUX and AWR metrics are diagnostic observations, not remediation advice.
+- This file records SQL validation evidence. It is NOT output from the
+  ExaCS OS/Grid node collection shell script.
+- Production identifiers have been anonymized before public sharing.
+
+END OF SAMPLE OUTPUT
